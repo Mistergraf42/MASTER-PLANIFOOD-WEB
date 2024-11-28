@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <script src="/JS/accueilPro.js"></script>
+</head>
+<body>
+<div class="container mt-5">
+    <div id="resInfo" class="content" th:if="${restaurant != null}">
+        <h2>Informations du restaurant</h2>
+        <p><strong>Nom :</strong> <span th:text="${restaurant.name}"></span></p>
+        <p><strong>Adresse :</strong> <span th:text="${restaurant.address}"></span></p>
+        <p><strong>Ville :</strong> <span th:text="${restaurant.city}"></span></p>
+        <p><strong>État :</strong> <span th:text="${restaurant.state}"></span></p>
+        <p><strong>Téléphone :</strong> <span th:text="${restaurant.phone}"></span></p>
+    </div>
+
+
+    <a href="/edit-restaurant" class="btn btn-primary">Edit restaurant</a>
+    <a href="/edit-carte" class="btn btn-primary">Edit carte</a>
+    <div style="margin: 0 auto;">
+        <canvas id="lineChart"></canvas>
+    </div>
+
+    <script th:inline="javascript">
+        const statReservation = /*[[${statReservation}]]*/ {};
+        const labels = Object.keys(statReservation);
+        const dataVal = Object.values(statReservation);
+    </script>
+</div>
+</body>
+</html>

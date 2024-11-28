@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" href="/CSS/carte.css">
+</head>
+<body>
+<div class="container">
+    <h1>Gestion des catégories</h1>
+
+    <h2>Catégories Éxistantes</h2>
+    <div class="categorie-details">
+        <ul>
+            <li th:each="categorie : ${categories}">
+                <p>
+                    <strong>Nom de la catégorie :</strong>
+                    <span th:text="${categorie.nom}">Nom de la catégorie</span>
+                </p>
+                <a th:href="'/edit-carte/categories/' + ${categorie.id}" class="btn">Modifier</a>
+            </li>
+        </ul>
+    </div>
+
+    <h2>Créer une Nouvelle Catégorie</h2>
+    <form action="/edit-carte/add-categories" method="post">
+        <div class="mb-3"a>
+            <label for="categorieNom">Nom de la Catégorie :</label>
+            <input type="text" id="categorieNom" name="nom" required>
+        </div>
+        <input type="hidden" name="_csrf" th:value="${_csrf.token}" />
+        <button type="submit">Créer la catégorie</button>
+    </form>
+</div>
+</body>
+</html>

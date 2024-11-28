@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<div class="container">
+    <h1>Gestion des Menus</h1>
+
+    <div class="categories-menus">
+        <ul>
+                    <ul th:each="menu : ${menus}">
+                        <p>
+                            <strong>Nom du menu :</strong>
+                            <span th:text="${menu.nom}">Nom du menu</span>
+                        </p>
+                        <p>
+                            <strong>Description :</strong>
+                            <span th:text="${menu.description}">Description du menu</span>
+                        </p>
+                        <a th:href="'/edit-carte/categories/' + ${categorie.id} + '/menus/' + ${menu.id}" class="btn">Modifier</a>
+                    </ul>
+        </ul>
+
+
+    </div>
+
+    <h2>Créer un Nouveau Menu</h2>
+    <form action="/edit-carte/add-menus" method="post">
+        <div class="mb-3">
+            <label for="menuNom">Nom du Menu :</label>
+            <input type="text" id="menuNom" name="nom" required>
+        </div>
+        <div class="mb-3">
+            <label for="menuDescription">Description :</label>
+            <textarea id="menuDescription" name="description" required></textarea>
+        </div>
+
+        <input type="hidden" name="_csrf" th:value="${_csrf.token}" />
+        <button type="submit">Créer le menu</button>
+    </form>
+</div>
+</body>
+</html>
