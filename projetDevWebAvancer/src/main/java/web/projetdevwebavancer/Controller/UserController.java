@@ -22,6 +22,7 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    // displays the user's profile page with their information
     @RequestMapping(value = "/profil", method = RequestMethod.GET)
     public String monProfil(Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -33,6 +34,7 @@ public class UserController {
         return "base";
     }
 
+    // changes the user's password if the current password is correct and the new passwords match
     @PostMapping("/change-password")
     public String changePassword(@RequestParam("currentPassword") String currentPassword, @RequestParam("newPassword") String newPassword, @RequestParam("confirmNewPassword") String confirmNewPassword, RedirectAttributes redirectAttributes, Principal p) {
         String email = p.getName();
@@ -53,6 +55,7 @@ public class UserController {
         return "redirect:/profil?section=changePassword";
     }
 
+    // updates the user's personal information after verifying their password, and redirects to the profile page
     @PostMapping("/update-info")
     public String updateUserInfo(@RequestParam("nom") String n, @RequestParam("prenom") String p, @RequestParam("email") String e, @RequestParam("tel") String t, @RequestParam("password") String password, RedirectAttributes r, Principal pr){
         String currentEmail = pr.getName();

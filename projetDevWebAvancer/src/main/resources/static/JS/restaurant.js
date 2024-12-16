@@ -69,23 +69,17 @@ function confirmReservation() {
         return;
     }
 
-    alert(`Réservation confirmée pour :
-    - ID Restaurant: ${restaurantId}
-    - Nombre de personnes: ${numPeople}
-    - Date sélectionnée: ${selectedDate}
-    - Horaire: ${horraire}`);
 
     fetch(`/reservationTable?id=${restaurantId}&nombrePersonne=${numPeople}&date=${selectedDate}&horaire=${horraire}`, {
         method: "GET"
     }).then(response => {
         if (response.ok) {
-            alert("Réservation réussie !");
+            console.log("Réservation réussie !");
         } else {
-            alert("Erreur lors de la réservation !");
+            console.logalert("Erreur lors de la réservation !");
         }
     }).catch(err => {
         console.error("Erreur :", err);
-        alert("Erreur de communication avec le serveur !");
     });
 }
 
@@ -179,4 +173,48 @@ document.addEventListener("DOMContentLoaded", function() {
             checkAndFetchReservation();
         }
     })
+    console.log(carte);
+    const app = Vue.createApp ({
+        data() {
+            console.log(carte.categories)
+            return {
+                categories: carte.categories,
+                menus: "",
+                plats: "",
+                platsCarte: "",
+                selectedCategory: "",
+            };
+        },
+
+        methods: {
+            selectCategory(categorie) {
+                this.selectedCategory = categorie;
+                console.log(Vue.toRaw(categorie.menues));
+                this.menus = Vue.toRaw(categorie.menues);
+                this.platsCarte = categorie.plats;
+            },
+            selectMenu(menu) {
+                this.plats = menu.plats;
+            },
+            retirerMenu(idMenu){
+                uri = "/remove-panier-menu/" + idMenu;
+                fetch(uri)
+                    .then(response => response.json())
+                    .catch(error => {
+                        console.error("Erreur lors du remove au panier");
+                    });
+
+            },
+            ajouterMenu(idMenu){
+                uri = "/add-panier-menu/" + idMenu;
+                fetch(uri)
+                    .then(response => response.json())
+                    .catch(error => {
+                        console.error("Erreur lors de l'ajout au panier");
+                    });
+            }
+        },
+    });
+    const vueInstance = app.mount("#app");
+
 });

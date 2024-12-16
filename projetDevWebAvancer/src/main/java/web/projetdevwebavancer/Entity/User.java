@@ -12,6 +12,7 @@ import java.util.Collection;
 import java.util.List;
 
 @Entity
+@Table(name = "\"user\"")
 public class User implements UserDetails {
 
     @Id
@@ -49,6 +50,9 @@ public class User implements UserDetails {
     public void setTickets(List<Ticket> tickets) {
         this.tickets = tickets;
     }
+
+    @OneToOne
+    private Panier panier = null;
 
     public Long getId() {
         return id;
@@ -155,6 +159,10 @@ public class User implements UserDetails {
     public void setRestaurateur(Restaurateur restaurateur) {
         this.restaurateur = restaurateur;
     }
+
+    public Panier getPanier() { return panier; }
+
+    public void setPanier(Panier panier) { this.panier = panier; }
 
     public Boolean getEnabled() {
         return enabled;

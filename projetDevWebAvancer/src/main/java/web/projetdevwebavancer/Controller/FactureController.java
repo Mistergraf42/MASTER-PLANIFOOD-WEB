@@ -27,6 +27,7 @@ public class FactureController {
 //    @Autowired
 //    FactureService factureService;
 
+// loads the authenticated user's invoices and info
 @RequestMapping(value = "/facture", method = RequestMethod.GET)
 public String pageFacture(Model m) {
     Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

@@ -24,6 +24,7 @@ public class Restaurant {
     private float latitude;
     private float longitude;
     private String phone;
+    private String uuid;
 
     @OneToMany
     @JsonIgnore
@@ -33,6 +34,7 @@ public class Restaurant {
     private Horaire horaire;
 
     @OneToOne
+    @JsonIgnore
     private Carte carte;
 
     public Long getId() {
@@ -125,5 +127,21 @@ public class Restaurant {
 
     public void setTables(List<TableRestaurant> tableRestaurants) {
         this.tableRestaurants = tableRestaurants;
+    }
+
+    public Carte getCarte() {
+        return carte;
+    }
+
+    public void setCarte(Carte carte) {
+        this.carte = carte;
+    }
+
+    public String getUuid() {
+        return uuid;
+    }
+
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
     }
 }

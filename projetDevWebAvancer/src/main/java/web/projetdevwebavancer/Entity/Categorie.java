@@ -1,5 +1,6 @@
 package web.projetdevwebavancer.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -16,10 +17,14 @@ public class Categorie {
     private boolean enabled = false;
 
     @ManyToOne
+    @JsonIgnore
     private Carte carte;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Menu> menues;
+
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Plat> plats;
 
     public Long getId() {
         return id;
@@ -59,5 +64,17 @@ public class Categorie {
 
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
+    }
+
+    public List<Plat> getPlats() {
+        return plats;
+    }
+
+    public void setPlats(List<Plat> plats) {
+        this.plats = plats;
+    }
+
+    public boolean isEnabled() {
+        return enabled;
     }
 }

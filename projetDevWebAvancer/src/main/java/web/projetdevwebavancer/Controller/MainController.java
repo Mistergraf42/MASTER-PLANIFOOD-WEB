@@ -19,6 +19,7 @@ public class MainController {
     @Autowired
     UserRepository userRepository;
 
+    // loads the authenticated user's info
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String pageAccueil(Model m) throws MessagingException {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

@@ -31,6 +31,7 @@ public class ReservationController {
     @Autowired
     TableReserverRepository tableReserverRepository;
 
+    // books a table at a restaurant if available
     @RequestMapping(value = "/reservation", method = RequestMethod.POST)
     public String reservation(@RequestParam("nbPersonne") int nbPersonne, @RequestParam("horaire") String horaire, @RequestParam("date") String date, @RequestParam("idRestaurant") Long idRestaurant) throws MessagingException {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -48,7 +49,7 @@ public class ReservationController {
         return "redirect:/";
     }
 
-
+    // loads the user's reservations and info, and returns the "base" view with "mesReservation" content
     @RequestMapping(value = "/mes-reservations", method = RequestMethod.GET)
     public String mesReservations(Model m) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

@@ -14,18 +14,19 @@ public class Plat {
 
     private String nom;
     private String description;
+
+    @Lob
+    @Column(columnDefinition = "MEDIUMTEXT")
     private String icone;
+
+    @Lob
+    @Column(columnDefinition = "MEDIUMTEXT")
     private String image;
     private int prix;
 
     @ManyToMany
     @JsonIgnore
     private List<Facture> factures;
-
-
-
-    @ManyToMany
-    private List<Menu> menu;
 
     private boolean enabled = false;
 
@@ -85,11 +86,5 @@ public class Plat {
         this.prix = prix;
     }
 
-    public List<Menu> getMenu() {
-        return menu;
-    }
 
-    public void setMenu(List<Menu> menu) {
-        this.menu = menu;
-    }
 }

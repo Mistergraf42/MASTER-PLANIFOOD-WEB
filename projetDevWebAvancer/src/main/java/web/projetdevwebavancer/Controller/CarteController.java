@@ -33,28 +33,52 @@ public class CarteController {
 
     @Autowired
     private RestaurantService restaurantService;
+    @Autowired
+    private CarteRepository carteRepository;
+    @Autowired
+    private RestaurantRepository restaurantRepository;
 
+    // loads the authenticated user and the "carte"
+    @Secured("ROLE_RESTAURATEUR")
     @GetMapping("/edit-carte")
     public String editCarte(Model m) {
+        Carte carte = null;
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication != null && authentication.isAuthenticated()) {
             String email = authentication.getName();
             User user = userRepository.findByEmail(email);
             m.addAttribute("user", user);
+            carte = carteRepository.findByRestaurant(user.getRestaurateur().getRestaurant());
+
         }
-        Carte carte = carteService.getCarte();
         m.addAttribute("carte", carte);
         m.addAttribute("content","editCarte");
         return "base";
     }
 
+    // saves a new "carte" linked to the authenticated user's restaurant
+    @Secured("ROLE_RESTAURATEUR")
+    @RequestMapping(value = "/add-carte", method = RequestMethod.POST)
+    public String addCarte(@ModelAttribute("carte") Carte carte) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication != null && authentication.isAuthenticated()) {
+            String email = authentication.getName();
+            User user = userRepository.findByEmail(email);
+            carte.setRestaurant(user.getRestaurateur().getRestaurant());
+            user.getRestaurateur().getRestaurant().setCarte(carte);
+            carteService.saveCarte(carte);
+            restaurantRepository.save(user.getRestaurateur().getRestaurant());
+        }
 
-    @PostMapping("/add-carte")
-    public String addCarte(Carte carte, RedirectAttributes r) {
-        carteService.saveCarte(carte);
-        r.addFlashAttribute("message", "Carte ajoutée avec succès !");
         return "redirect:/edit-carte";
     }
+//    @PostMapping("/add-carte")
+//    public String addCarte(Carte carte, RedirectAttributes r) {
+//
+//        carteService.saveCarte(carte);
+//        r.addFlashAttribute("message", "Carte ajoutée avec succès !");
+//        return "redirect:/edit-carte";
+//    }
 
 
 

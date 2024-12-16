@@ -32,7 +32,7 @@ public class ReservationRestaurantService {
     @Autowired
     MailService mailService;
 
-
+    // generates a list of dates for a specified month and year
     public List<LocalDate> genererDate(int mois, int annee) {
         List<LocalDate> dates = new ArrayList<>();
         LocalDate date = LocalDate.of(annee, mois, 1);
@@ -45,6 +45,7 @@ public class ReservationRestaurantService {
         return dates;
     }
 
+    // counts the number of reserved tables for a specific restaurant, date, number of people, and start time
     public int tableReserver(LocalDate date, Long id_restaurant, int nb_personne, String horaireDebut) {
 //        System.out.println("Paramètres d'entrée :");
 //        System.out.println("Date : " + date);
@@ -102,6 +103,7 @@ public class ReservationRestaurantService {
         return count;
     }
 
+    // filters the list of dates, removing those when the restaurant is closed according to its schedule
     public List<LocalDate> dateJourOuverture(List<LocalDate> dates, Horaire horaire) {
         List<LocalDate> datesToRemove = new ArrayList<>();
         for (LocalDate date : dates) {
@@ -154,6 +156,7 @@ public class ReservationRestaurantService {
         return dates;
     }
 
+    // returns the available reservation dates for a restaurant for a specific month, year, number of people, and start time
     public List<LocalDate> obtenirDatesAvecReservations(int mois, int annee, Long idRestaurant, int nbPersonne, String horaireDebut) {
         // Liste pour stocker les dates ayant des réservations valides
         TableRestaurant tableRestaurant = tableRestaurantRepository.findOneByRestaurantIdAndNombrePersonnesMax( Long.valueOf(idRestaurant), nbPersonne);
@@ -177,6 +180,7 @@ public class ReservationRestaurantService {
         return dates;
     }
 
+    // checks if a table is available for a specific restaurant, date, number of people, and start time
     public boolean tableDisponible(LocalDate date, int nbPersonnes, Long idRestaurant, String horaireDebut) {
         TableRestaurant tableRestaurant = tableRestaurantRepository.findOneByRestaurantIdAndNombrePersonnesMax( idRestaurant, nbPersonnes);
         int nbTablePrise = tableReserver(date, idRestaurant, nbPersonnes, horaireDebut);
@@ -186,6 +190,7 @@ public class ReservationRestaurantService {
         return false;
     }
 
+    // confirms a table reservation for a user, creates a new reservation, and sends confirmation emails to the user and restaurant owner
     public void valideReserverTable(LocalDate date, int nbPersonnes, Long idRestaurant, String horaireDebut, User user ) throws MessagingException {
         System.out.println(idRestaurant+ " " + nbPersonnes);
         TableRestaurant tableRestaurant = tableRestaurantRepository.findOneByRestaurantIdAndNombrePersonnesMax(idRestaurant, nbPersonnes);
@@ -222,6 +227,7 @@ public class ReservationRestaurantService {
         mailService.sendMail(tableRestaurant.getRestaurant().getRestaurateur().getUser().getEmail(), "Nouvelle réservation" , "emailNouvelleReservation", option);
     }
 
+    // generates a map of reservation statistics for the past 12 months for a specific restaurant
     public Map<String, Integer> statDeReservation(Long idRestaurant){
         Map<String, Integer> map = new LinkedHashMap<>();
         LocalDate end = LocalDate.now();

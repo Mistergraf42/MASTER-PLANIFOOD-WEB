@@ -21,7 +21,7 @@ public class MailService {
     SpringTemplateEngine templateEngine;
 
 
-
+    // Sends an email with the specified recipient, subject, and template, optionally including dynamic content from a map of variables
     public void sendMail(String to, String subject, String template, Map<String,Object> option) throws MessagingException {
         MimeMessage message = mailSender.createMimeMessage();
         Context context = new Context();
@@ -36,6 +36,7 @@ public class MailService {
         mailSender.send(message);
     }
 
+    //
     public void sendMail(String to, String subject, String template) throws MessagingException {
         sendMail(to,subject,template,null);
     }

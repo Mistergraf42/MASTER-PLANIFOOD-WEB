@@ -40,7 +40,7 @@ public class RestaurateurController {
     @Autowired
     private ReservationRestaurantService reservationRestaurantService;
 
-
+    // displays the professional account creation page and loads authenticated user info
     @RequestMapping(value = "/Creation-compte-pro", method = RequestMethod.GET)
     public String creationPro(Model m) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -56,6 +56,7 @@ public class RestaurateurController {
         return "base";
     }
 
+    // creates a new professional account with the provided SIRET
     @RequestMapping(value = "/Creation-compte-pro", method = RequestMethod.POST)
     public String creationProPost(@RequestParam("siret") String siret) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -71,6 +72,7 @@ public class RestaurateurController {
         return "redirect:/";
     }
 
+    // displays the professional account page, loads user and restaurant info, and redirects if no pro account exists
     @RequestMapping(value = "/Mon-compte-pro", method = RequestMethod.GET)
     public String accueilPro(Model m) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -94,6 +96,7 @@ public class RestaurateurController {
         return "base";
     }
 
+    // displays the restaurant edit page, loads authenticated user and restaurant info
     @Secured("ROLE_RESTAURATEUR")
     @RequestMapping(value = "/edit-restaurant", method = RequestMethod.GET)
     public String configRestaurant(Model m) {
@@ -108,20 +111,24 @@ public class RestaurateurController {
         return "base";
     }
 
+    // updates the restaurant's details and redirects to the restaurant edit page
     @Secured("ROLE_RESTAURATEUR")
     @RequestMapping(value = "/edit-restaurant", method = RequestMethod.POST)
     public String configRestaurantPost(@RequestParam("name") String name,
                                        @RequestParam("address") String address,
-                                       @RequestParam("city") String city) {
+                                       @RequestParam("city") String city,
+                                       @RequestParam("latitude") float latitude,
+                                       @RequestParam("longitude") float longitude) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication != null && authentication.isAuthenticated()) {
             String email = authentication.getName();
             User user = userRepository.findByEmail(email);
-            restaurantService.saveRestaurantEdit(user.getRestaurateur().getRestaurant(), name, address, city);
+            restaurantService.saveRestaurantEdit(user.getRestaurateur().getRestaurant(), name, address, city, latitude, longitude);
         }
         return "redirect:/edit-restaurant";
     }
 
+    // updates table information for the restaurant and redirects to the restaurant edit page
     @Secured("ROLE_RESTAURATEUR")
     @RequestMapping(value = "/edit-table", method = RequestMethod.POST)
     public String editTableRestaurantPost(@RequestParam("id") Long id,
@@ -141,6 +148,7 @@ public class RestaurateurController {
         return "redirect:/edit-restaurant";
     }
 
+    // deletes a table from the restaurant and redirects to the restaurant edit page
     @Secured("ROLE_RESTAURATEUR")
     @RequestMapping(value = "/delete-table", method = RequestMethod.POST)
     public String deleteTableRestaurantPost(@RequestParam("id") int id) {
@@ -165,6 +173,7 @@ public class RestaurateurController {
         return "redirect:/edit-restaurant";
     }
 
+    // adds a new table to the restaurant and redirects to the restaurant edit page
     @Secured("ROLE_RESTAURATEUR")
     @RequestMapping(value = "/add-table", method = RequestMethod.POST)
     public String addTableRestaurantPost(@RequestParam("nbPersonne") int nbPersonne,
@@ -179,6 +188,7 @@ public class RestaurateurController {
         return "redirect:/edit-restaurant";
     }
 
+    // updates the restaurant's schedule for each day of the week and redirects to the restaurant edit page
     @Secured("ROLE_RESTAURATEUR")
     @RequestMapping(value = "/saveHoraire", method = RequestMethod.POST)
     public String saveHoraireRestaurantPost(

@@ -18,7 +18,7 @@ public class TicketService {
     @Autowired
     TicketRepository ticketRepository;
 
-
+    // retrieves a list of messages (chat) for a specific ticket by its ID, handling potential null values using an Optional
     public List<Message> messages (Long id){ //Optional to dont have null pb thanks IntelliJ
         Optional<Ticket> ticket = ticketRepository.findById(id);
         List<Message> messages = new ArrayList<>();

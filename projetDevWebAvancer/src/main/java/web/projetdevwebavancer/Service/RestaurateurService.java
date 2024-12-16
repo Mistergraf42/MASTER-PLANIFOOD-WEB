@@ -6,6 +6,7 @@ import web.projetdevwebavancer.Entity.*;
 import web.projetdevwebavancer.Repository.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class RestaurateurService {
@@ -24,6 +25,7 @@ public class RestaurateurService {
     @Autowired
     UserService userService;
 
+    // creates a new restaurateur, associates it with a user, creates a new restaurant and its schedule, and updates the user's role to "ROLE_RESTAURATEUR"
     public void createRestaurateur(Restaurateur restaurateur, User user) {
         restaurateur.setUser(user);
         restaurateurRepository.save(restaurateur);
@@ -32,6 +34,7 @@ public class RestaurateurService {
         userRepository.save(user);
         Restaurant restaurant = new Restaurant();
         restaurant.setRestaurateur(restaurateur);
+        restaurant.setUuid(UUID.randomUUID().toString());
         restaurantRepository.save(restaurant);
         Horaire horaire = new Horaire();
         horaire.setRestaurant(restaurant);
@@ -45,6 +48,7 @@ public class RestaurateurService {
         userService.updateConnexion(user);
     }
 
+    // creates a new table configuration for a restaurant, adding it to the restaurant's list of tables if it doesn't already exist for the specified number of people
     public void creerTable(User user, int nbPersonne, int nbTable) {
         List<TableRestaurant> tables = user.getRestaurateur().getRestaurant().getTables();
         for (TableRestaurant tableRestaurant : tables) {

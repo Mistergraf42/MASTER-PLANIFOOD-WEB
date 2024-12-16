@@ -11,4 +11,7 @@ public interface RestaurantRepository extends JpaRepository<Restaurant, Long> {
 
     Restaurant findByid(int id);
 
+    List<Restaurant> findAllByLatitudeBetweenAndLongitudeBetween(float latitude, float longitude, float latitude2, float longitude2);
+
+    Restaurant findOneByIdAndUuid(int id, String uuid);
 }

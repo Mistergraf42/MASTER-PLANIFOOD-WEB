@@ -1,5 +1,6 @@
 package web.projetdevwebavancer.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -17,6 +18,7 @@ public class Carte {
     List<Categorie> categories;
 
     @OneToOne
+    @JsonIgnore
     Restaurant restaurant;
 
     private boolean enabled = false;

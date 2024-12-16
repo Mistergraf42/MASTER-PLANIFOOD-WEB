@@ -73,3 +73,28 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 
+
+
+
+document.addEventListener("DOMContentLoaded", () => {
+    const appMessage = Vue.createApp({
+        data() {
+            return {
+                msg: "Votre discussion",
+                messages: messageData // Variable provenant du backend
+            };
+        },
+        methods: {
+            formatDate(date) {
+                if (!date) return "Non spécifiée";
+                const options = { year: "numeric", month: "long", day: "numeric", hour: "2-digit", minute: "2-digit" };
+                return new Date(date).toLocaleDateString("fr-FR", options);
+            }
+        }
+    });
+
+    appMessage.mount("#appMessage");
+});
+
+
+

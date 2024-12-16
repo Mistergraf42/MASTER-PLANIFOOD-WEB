@@ -15,8 +15,9 @@
     <h1 th:text="'Vos Tickets : ' + ${user.prenom}"></h1>
     <div id="appfacture">
         <div>
-            <button class="btn btn-primary me-2" @click="filterOpenTickets">Seulement Ouvert</button>
-            <button class="btn btn-secondary" @click="resetFilter">Tous les Tickets</button>
+            <button class="btn btn-primary me-2" @click="filterOpenTickets">Seulement ouvert</button>
+            <button class="ml-2 btn btn-secondary" @click="resetFilter">Tous les tickets</button>
+            <a class="ml-2 btn btn-secondary" href="/creationTicket">Nouveau ticket</a>
         </div>
         <div v-if="filteredTickets.length > 0">
             <h2>{{ message }}</h2>

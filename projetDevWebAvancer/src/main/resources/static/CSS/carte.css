@@ -24,15 +24,13 @@ h1 {
     margin-bottom: 30px;
 }
 
-/* Titre de section */
 h2 {
     font-size: 1.8em;
     color: #5a67d8;
     margin-bottom: 15px;
-    text-align: left; /* alignement à gauche */
+    text-align: left;
 }
 
-/* Conteneur pour les détails de la carte */
 .carte-details {
     text-align: left;
     margin-top: 20px;
@@ -44,8 +42,7 @@ p {
     margin: 15px 0;
 }
 
-/* Bouton */
-.btn {
+.container .btn {
     display: inline-block;
     padding: 10px 20px;
     font-size: 1.2em;
@@ -59,11 +56,10 @@ p {
     margin-top: 10px;
 }
 
-.btn:hover {
+.container .btn:hover {
     background-color: #4c51bf;
 }
 
-/* Message de confirmation */
 .alert-success {
     background-color: #e6fffa;
     color: #2d3748;

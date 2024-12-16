@@ -6,5 +6,6 @@ import web.projetdevwebavancer.Entity.Menu;
 import java.util.List;
 
 public interface MenuRepository extends JpaRepository<Menu, Long> {
+    List<Menu> findByCategorieId(Long categorieId);
 }
 

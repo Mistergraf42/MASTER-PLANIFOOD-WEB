@@ -2,6 +2,7 @@ package web.projetdevwebavancer.Entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import org.hibernate.action.internal.OrphanRemovalAction;
 
 import java.awt.*;
 import java.util.List;
@@ -22,12 +23,28 @@ public class Menu {
 
     private String description;
 
+    private Double prix;
+
     @ManyToOne
+    @JsonIgnore
     private Categorie categorie;
 
     private boolean enabled;
 
+    @ManyToMany(cascade = CascadeType.ALL)
+    private List<Plat> plats;
+
+
     // Getters et Setters
+
+
+    public Double getPrix() {
+        return prix;
+    }
+
+    public void setPrix(Double prix) {
+        this.prix = prix;
+    }
 
     public String getDescription() {
         return description;
@@ -67,5 +84,13 @@ public class Menu {
 
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
+    }
+
+    public List<Plat> getPlats() {
+        return plats;
+    }
+
+    public void setPlats(List<Plat> plats) {
+        this.plats = plats;
     }
 }

@@ -10,10 +10,21 @@
         <div class="mb-3">
             <label for="address" class="form-label">Address du restaurant</label>
             <input type="text" name="address" class="form-control" id="address" th:value="${restaurant.address}" placeholder="" required>
+
         </div>
         <div class="mb-3">
             <label for="city" class="form-label">Ville du restaurant</label>
             <input type="text" name="city" class="form-control" id="city" th:value="${restaurant.city}" placeholder="" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="latitude" class="form-label">Latitude</label>
+            <input type="text" name="latitude" class="form-control" id="latitude" th:value="${restaurant.latitude}" placeholder="" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="longitude" class="form-label">Longitude</label>
+            <input type="text" name="longitude" class="form-control" id="longitude" th:value="${restaurant.longitude}" placeholder="" required>
         </div>
 
         <input type="hidden" name="_csrf" th:value="${_csrf.token}" />

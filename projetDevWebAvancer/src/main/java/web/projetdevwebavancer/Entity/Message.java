@@ -11,8 +11,7 @@ public class Message {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne
-    @JsonIgnore
+    @ManyToOne
     private User idClient;
 
     private String message;

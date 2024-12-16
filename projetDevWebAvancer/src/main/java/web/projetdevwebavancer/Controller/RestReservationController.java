@@ -25,6 +25,7 @@ public class RestReservationController {
     @Autowired
     ReservationRestaurantService reservationRestaurantService;
 
+    // retrieves available reservation dates for a specific restaurant, time, and number of people
     @GetMapping("/reservationTable")
     public List<LocalDate> getReservationTable(@RequestParam("id") Long idRestaurant, @RequestParam("nombrePersonne") int NbPersonne, @RequestParam("horraireTable") String horraire, @RequestParam("moiscalendrier") int mois, @RequestParam("anneecalendrier") int annee) {
         System.out.println("id Restaurant ==> " + idRestaurant + " Nb personnes ==> " + NbPersonne + " Horraire ==> " + horraire);

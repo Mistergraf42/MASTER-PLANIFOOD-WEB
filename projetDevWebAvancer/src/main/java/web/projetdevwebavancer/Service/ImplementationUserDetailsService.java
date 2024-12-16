@@ -14,6 +14,8 @@ public class ImplementationUserDetailsService implements UserDetailsService {
     @Autowired
     private UserRepository userRepository;
 
+
+    // Loads a user by their email for authentication, throwing an exception if not found, and returns a Spring Security UserDetails object
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         User user = userRepository.findByEmail(email);

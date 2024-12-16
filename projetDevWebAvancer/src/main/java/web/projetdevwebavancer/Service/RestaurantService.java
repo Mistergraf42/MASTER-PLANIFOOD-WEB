@@ -25,13 +25,17 @@ public class RestaurantService {
     @Autowired
     HoraireRepository horaireRepository;
 
-    public void saveRestaurantEdit(Restaurant restaurant, String name, String address, String city) {
+    // updates the restaurant's details (name, address, city, latitude, and longitude) and saves the changes
+    public void saveRestaurantEdit(Restaurant restaurant, String name, String address, String city, float latitude, float longitude) {
         restaurant.setName(name);
         restaurant.setAddress(address);
         restaurant.setCity(city);
+        restaurant.setLatitude(latitude);
+        restaurant.setLongitude(longitude);
         restaurantRepository.save(restaurant);
     }
 
+    // updates and saves the restaurant's schedule for each day of the week, setting opening and closing times for up to two service periods per day
     public void saveHoraireRestaurant(Horaire horaire,
                                       String lundiOpen,
                                       String lundiService1StartHour,

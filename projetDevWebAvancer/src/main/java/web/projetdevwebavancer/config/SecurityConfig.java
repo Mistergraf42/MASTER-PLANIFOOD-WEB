@@ -20,11 +20,18 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/login","/register","/", "/img/**", "/CSS/**", "/JS/**", "/searchRestaurant", "/restaurant/{id}","/reservationTable", "/validationToken","/facture","/creationTicket","/mes_ticket","/chatTicket/{id}").permitAll()
+                        .requestMatchers("/login","/register","/", "/img/**", "/CSS/**", "/JS/**", "/searchRestaurant", "/restaurant/{id}","/reservationTable", "/validationToken","/facture","/locRestaurant","/api/**","/h2-console/**").permitAll()
                         .requestMatchers(HttpMethod.POST, "/register").permitAll()
+                        .requestMatchers(HttpMethod.DELETE, "/api/**").permitAll()
                         .anyRequest().authenticated()
                 )
 
+                .csrf(csrf -> csrf
+                        .ignoringRequestMatchers("/api/**","/h2-console/**")
+                )
+                .headers(headers -> headers
+                        .frameOptions(frameOptions -> frameOptions.disable()) // Désactive complètement les restrictions sur les frames
+                )
                 .formLogin(formLogin -> formLogin
                         .loginPage("/login")
                         .usernameParameter("email")

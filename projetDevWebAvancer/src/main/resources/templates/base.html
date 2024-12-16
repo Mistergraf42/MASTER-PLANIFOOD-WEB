@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -34,6 +34,7 @@
                     <div id="resResto" class="position-absolute w-100 mt-1"></div>
                 </form>
             </div>
+
             <div class="compte">
                 <img src="/img/unknow.png" width="50" height="50">
 
@@ -57,12 +58,14 @@
                         <a href="/mes-reservations" class="btn btn-primary mt-2">Mes réservations</a>
                         <a href="/facture" class="btn btn-primary mt-2">Mes factures</a>
                         <a href="/profil" class="btn btn-primary mt-2">Mon profil</a>
+                        <a href="/panier" class="btn btn-primary mt-2">Mon panier</a>
                         <hr>
                         <a href="/Mon-compte-pro" class="btn btn-primary mt-1 mb-2">Espace Pro</a>
                         <form action="/logout" method="post" style="display: inline;">
                             <input type="hidden" name="_csrf" th:value="${_csrf.token}" />
                             <button type="submit" class="mt-2 mb-1 btn btn-danger">Déconnexion</button>
                         </form>
+
                     </div>
                 </div>
             </div>
@@ -72,7 +75,7 @@
 </header>
 
 <main>
-    <div th:insert="${content}"></div>
+    <div th:insert="~{${content}}"></div>
 </main>
 
 
@@ -84,11 +87,8 @@
     </a>
 
     <ul class="nav col-md-4 justify-content-end">
-        <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Home</a></li>
-        <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Features</a></li>
-        <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Pricing</a></li>
-        <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">FAQs</a></li>
-        <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">About</a></li>
+        <li class="nav-item"><a href="/mes_ticket" class="nav-link px-2 text-body-secondary">Support</a></li>
+        <li class="nav-item"><a href="/abonnement" class="nav-link px-2 text-body-secondary">Tarif</a></li>
     </ul>
 </footer>
 

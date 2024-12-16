@@ -7,7 +7,6 @@
 // });
 //
 // app.mount("#app");
-
 document.addEventListener("DOMContentLoaded", (event) => {
     let searchBar = document.getElementById("searchBar");
     searchBar.addEventListener("keyup",  () => {

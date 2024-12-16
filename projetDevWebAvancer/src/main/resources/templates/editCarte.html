@@ -27,9 +27,10 @@
                 <input type="text" id="carteNom" name="nom" required>
             </div>
             <input type="hidden" name="_csrf" th:value="${_csrf.token}" />
-            <button type="submit">Créer Carte</button>
+            <button class="btn btn-primary" type="submit">Créer Carte</button>
         </form>
     </div>
+    <a th:href="@{/Mon-compte-pro}" class="btn btn-secondary">Retour</a>
 </div>
 
 
